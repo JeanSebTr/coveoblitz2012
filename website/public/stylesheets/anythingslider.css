@@ -10,8 +10,8 @@
  *****************************/
 /* change the ID to match your slider */
 #slider {
-	width: 700px;
-	height: 390px;
+	width: 814px;
+	height: 266px;
 	list-style: none;
 	/* Prevent FOUC (see FAQ page) and keep things readable if javascript is disabled */
 	overflow-y: auto;
@@ -24,13 +24,13 @@
 /**** Default state (no keyboard focus) ****/
 /* slider window - top & bottom borders, default state */
 div.anythingSlider .anythingWindow {
-	border-top: 3px solid #777;
-	border-bottom: 3px solid #777;
+	border-top: 0;
+	border-bottom: 0;
 }
 /* Navigation buttons, default state */
 div.anythingSlider .anythingControls ul a.cur, div.anythingSlider .anythingControls ul a {
-	background: #777;
-	color: #000;
+	background: #000;
+	color: #fff;
 }
 /* start-stop button, stopped, default state */
 div.anythingSlider .start-stop {
@@ -53,7 +53,7 @@ div.anythingSlider.activeSlider .anythingWindow {
 }
 /* Navigation buttons, active state */
 div.anythingSlider.activeSlider .anythingControls ul a.cur, div.anythingSlider.activeSlider .anythingControls ul a {
-	background-color: #7C9127;
+	background-color: #000;
 }
 /* start-stop button, stopped, active state */
 div.anythingSlider .start-stop {
