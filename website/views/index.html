@@ -1,105 +1,32 @@
-<div role="content">
-    <form id="search">
-        <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='en' onwebkitspeechchange="onChange()" />
-        <div id="loupe">
-        	<input type="image" src="../images/loupe.png" />
-        </div>
-    </form>
-</div>
+<form id="search">
+   <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='en' onwebkitspeechchange="onChange()" />
+   <div id="loupe">
+      <input type="image" src="../images/loupe.png" />
+   </div>
+</form>
 
-<aside>
-    <h1>Tag Cloud</h1>
-    <div id='tagcloud'>
-    <div>
-    </div>
-</aside>
-
-<script type="text/javascript">
-   function onChange(){
-      $('#search').submit();
-   }
-
-   function shuffle(array) {
-      var tmp, current, top = array.length;
-
-      if(top) while(--top) {
-         current = Math.floor(Math.random() * (top + 1));
-         tmp = array[current];
-         array[current] = array[top];
-         array[top] = tmp;
-      }
-
-      return array;
-   }
-
-   $('#search').submit(function(e){
-      var url = '/api/search?s=' + encodeURI($('#searchfield').val());
-      $.ajax({
-         url: url,
-         success: function(data){
-            
-            console.dir(data);
-            if(data && data.success){
-               console.dir(data.result);
-               //TODO do smoething nice with the data
-            }
-         }
-      });
-
-      return false;
-   });
-
-   $(document).ready(function() {
-      var url = '/api/tags';
-      $.ajax({
-         url: url,
-         success: function(data){
-            
-            console.dir(data);
-            if(data && data.success){
-               console.dir(data.result);
-               var tags =data.result;
-               displayTagCloud(tags);
-            }
-         }
-      });
-      updateProgress();
-   });
-
-   function updateProgress(){
-      var url = '/api/tags';
-      $.ajax({
-         url: url,
-         success: function(data){
-            if(data && data.success){
-               console.log('toot');
-               console.dir(data.result);
-               $('#progress-note').empty().append(data.result);
-            }
-         }
-      });
-   }
-
-   function displayTagCloud(tags){
-      $('#tagcloud').empty();
-      $("<ul>").attr("id", "taglist").css('max-width', '250px').css('list-style-type', 'none').css('margin', '0px').css('padding', '0px').appendTo("#tagcloud");
-      $.each(tags, function(i, val){
-         $('<li>').attr('data-val', val.name).attr('class', 'taglist-item').css('margin', '5px').css('float', 'left').css('font-size', (val.freq / 10 < 1) ? val.freq / 10 + 1 + "em": (val.freq / 10 > 2) ? "2em" : val.freq / 10 + "em").append(val.name).appendTo('#taglist');
-      });
-
-      $('.taglist-item').hover(function(e){
-         var fs = parseInt($(this).css('font-size').replace('px', ''));
-         $(this).css('font-size', fs * 1.2);
-      }, function(e){
-         var fs = parseInt($(this).css('font-size').replace('px', ''));
-         $(this).css('font-size', fs / 1.2);
-      });
-
-      $('.taglist-item').click(function(){
-         var value = $(this).attr('data-val');
-         $('#searchfield').val(value);
-         $('#search').submit();
-
-      });
-   }
-</script>
+<ul id="menu">
+   <li class="menu_left"><a href="#" class="drop">Pays</a>
+      <div class="dropdown_1column">
+                <div class="col_1">
+                    <ul class="simple">
+                        <li><a href="#">FreelanceSwitch</a></li>
+                        <li><a href="#">Creattica</a></li>
+                        <li><a href="#">WorkAwesome</a></li>
+                        <li><a href="#">Mac Apps</a></li>
+                        <li><a href="#">Web Apps</a></li>
+                        <li><a href="#">NetTuts</a></li>
+                        <li><a href="#">VectorTuts</a></li>
+                        <li><a href="#">PsdTuts</a></li>
+                        <li><a href="#">PhotoTuts</a></li>
+                        <li><a href="#">ActiveTuts</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Logo</a></li>
+                        <li><a href="#">Flash</a></li>
+                        <li><a href="#">Illustration</a></li>
+                        <li><a href="#">More...</a></li>
+                    </ul>   
+                </div>
+      </div>
+   </li>
+</ul>
