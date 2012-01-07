@@ -26,20 +26,30 @@ header[role="banner"]{
     background-color: #555;
 }
 
-.slide .vin .img{
-    width: 133px;
+.vin .img{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow:inset 0px 0px 1px #edf9ff;
+    -webkit-box-shadow:inset 0px 0px 1px #edf9ff;
+    box-shadow:inset 0px 0px 1px #edf9ff;
+    border: 1px solid #002232;
+
+    background-color: #fff;
+    width: 114px;
     display: block;
     float: left;
-    padding-top: 10px;
+    margin-top: 10px;
+    margin-left: 8px;
 }
 
-.slide .vin .infos{
-    width: 118px;
+.vin .infos{
+    width: 127px;
     display: block;
     float:left;
 
     text-align: right;
-    padding-right: 15px;
+    padding-right: 0px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -144,4 +154,31 @@ html ul.topnav li ul.subnav li a {
 }
 html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
     background: #222 url(dropdown_linkbg.gif) no-repeat 10px center;
+}
+
+#results{
+    margin-top: 10px;
+}
+
+#grid .row{
+    background-color: #555;
+    border-top: 2px solid #000;
+    padding: 4px;
+}
+
+#grid .vin{
+    display: inline-block;
+    border: 1px solid #fff;
+    height: 150px;
+    width: 266px;
+}
+
+#grid .img{
+    display: block;
+    height: 120px;
+    width: 70px;
+}
+
+#grid .infos{
+    width: 160px;
 }

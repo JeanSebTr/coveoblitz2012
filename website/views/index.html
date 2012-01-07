@@ -1,10 +1,84 @@
 <form id="search">
-   <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='en' onwebkitspeechchange="onChange()" />
+   <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='fr' onwebkitspeechchange="onChange()" />
    <div id="loupe">
-      <input type="image" src="../images/loupe.png" />
+      <input id="search_input" type="image" src="../images/loupe.png" />
    </div>
 </form>
 
+<script type='text/javascript'>
+  function onChange(){
+        $('#search').submit();
+      }
+   $(document).ready(function() {
+      $('img.wine_img').imgscale({
+        parent : '.img',
+        scale : 'fill'
+      });
+
+      $('#search').submit(function(){
+        alert('toto');
+        return false; 
+      });
+
+      $('.filter_item').click(function(){
+        var v = $('#searchfield').val();
+        
+        $('#searchfield').val(v + 'toto');
+      });
+
+      $('#searchfield').keyup(function(){
+         updateSuggest();
+      });
+
+      var url = '/api/filters/';
+      $.ajax({
+        url: url,
+        context: document.body,
+        success: function(data){
+          console.dir(data);
+          if(data){
+             $('#menu').empty();
+             $.each(data, function(i,e){
+                  var li = $('<li>');
+                  li.attr('class', 'menu_left').appendTo('#menu');
+                  var a1 = $('<a>').attr('href', '#').attr('class', 'drop').append(e.name);
+                  a1.appendTo(li);
+                  var div1 = $('<div>').attr('class', 'dropdown_1column');
+                  div1.appendTo(li);
+                  var div2 = $('<div>').attr('class', 'col_1');
+                  div2.appendTo(div1);
+                  var ul = $('<ul>').attr('class', 'simple');
+                  ul.appendTo(div2);
+                  for(var i=0; i < e.values.length;i++){
+                     console.log(e.values[i]);
+                     var item = $('<li>');
+                     item.appendTo(ul);
+                     var item_a = $('<a>').attr('href', '#').attr('class', 'filter_item').append(e.values[i]);
+                     item_a.appendTo(item);
+                  }
+             });
+          }
+        }
+      });
+   });
+
+   function updateSuggest(){
+      if($('#searchfield').val() && $('#searchfield').val() != ''){
+         $.ajax({
+           url: '/api/suggests/' + $('#searchfield').val(),
+           context: document.body,
+           success: function(data){
+            console.log('toto');
+             console.dir(data);
+             if(data){
+                $('#search_input').autocomplete(data, {max: 15, scrollHeight: 200});
+             }
+           }
+         });
+      }
+   }
+
+</script>
 <ul id="menu">
    <li class="menu_left"><a href="#" class="drop">Pays</a>
       <div class="dropdown_1column">
@@ -30,3 +104,166 @@
       </div>
    </li>
 </ul>
+
+<div id="results">
+  <div id="results_menu">
+    <a href="#">Simplifié</a>
+    <a href="#">Détaillé</a>
+  </div>
+  <div id="grid">
+    <div class="row">
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+       <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+       <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+       <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+      <div class="vin">
+       <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <a href="#">Emportez moi!</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="list">
+  </div>
+</div>
