@@ -4,3 +4,43 @@
       <input type="image" src="../images/loupe.png" />
    </div>
 </form>
+
+<script type='text/javascript'>
+   $(document).ready(function() {
+      var url = '/api/filters/';
+      $.ajax({
+        url: url,
+        context: document.body,
+        success: function(data){
+          console.dir(data);
+        }
+      });
+   });
+
+</script>
+
+<ul id="menu">
+   <li class="menu_left"><a href="#" class="drop">Pays</a>
+      <div class="dropdown_1column">
+                <div class="col_1">
+                    <ul class="simple">
+                        <li><a href="#">FreelanceSwitch</a></li>
+                        <li><a href="#">Creattica</a></li>
+                        <li><a href="#">WorkAwesome</a></li>
+                        <li><a href="#">Mac Apps</a></li>
+                        <li><a href="#">Web Apps</a></li>
+                        <li><a href="#">NetTuts</a></li>
+                        <li><a href="#">VectorTuts</a></li>
+                        <li><a href="#">PsdTuts</a></li>
+                        <li><a href="#">PhotoTuts</a></li>
+                        <li><a href="#">ActiveTuts</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Logo</a></li>
+                        <li><a href="#">Flash</a></li>
+                        <li><a href="#">Illustration</a></li>
+                        <li><a href="#">More...</a></li>
+                    </ul>   
+                </div>
+      </div>
+   </li>
+</ul>
