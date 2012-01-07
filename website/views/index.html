@@ -13,12 +13,33 @@
         context: document.body,
         success: function(data){
           console.dir(data);
+          if(data){
+             $('#menu').empty();
+             $.each(data, function(i,e){
+                  var li = $('<li>');
+                  li.attr('class', 'menu_left').appendTo('#menu');
+                  var a1 = $('<a>').attr('href', '#').attr('class', 'drop').append(e.name);
+                  a1.appendTo(li);
+                  var div1 = $('<div>').attr('class', 'dropdown_1column');
+                  div1.appendTo(li);
+                  var div2 = $('<div>').attr('class', 'col_1');
+                  div2.appendTo(div1);
+                  var ul = $('<ul>').attr('class', 'simple');
+                  ul.appendTo(div2);
+                  for(var i=0; i < e.values.length;i++){
+                     console.log(e.values[i]);
+                     var item = $('<li>');
+                     item.appendTo(ul);
+                     var item_a = $('<a>').attr('href', '#').append(e.values[i]);
+                     item_a.appendTo(item);
+                  }
+             });
+          }
         }
       });
    });
 
 </script>
-
 <ul id="menu">
    <li class="menu_left"><a href="#" class="drop">Pays</a>
       <div class="dropdown_1column">
