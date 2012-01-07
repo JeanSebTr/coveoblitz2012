@@ -1,0 +1,21 @@
+img {
+  border: none;
+  margin: 0px;
+}
+body {
+  width: 100%;
+  background-color: #e4cd94;
+}
+header[role="banner"] {
+  background-color: #550402;
+}
+#slider {
+  margin: auto;
+  width: 200px;
+  text-align: center;
+  display-inline: block;
+}
+#wrapper {
+  width: 200px;
+  margin: auto;
+}
