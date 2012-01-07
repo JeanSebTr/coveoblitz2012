@@ -51,11 +51,9 @@
    function updateSuggest(){
       if($('#searchfield').val() && $('#searchfield').val() != ''){
          $.ajax({
-           url: '/api/suggests/' + $('#searchfield').val(),
+           url: '/api/suggest?query=' + $('#searchfield').val(),
            context: document.body,
            success: function(data){
-            console.log('toto');
-             console.dir(data);
              if(data){
                 $('#search_input').autocomplete(data, {max: 15, scrollHeight: 200});
              }
