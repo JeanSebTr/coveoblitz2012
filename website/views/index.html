@@ -35,7 +35,6 @@
         url: url,
         context: document.body,
         success: function(data){
-          console.dir(data);
           if(data){
              $('#menu').empty();
              $.each(data, function(i,e){
@@ -69,9 +68,7 @@
            context: document.body,
            success: function(data){
              if(data){
-                console.log(data);
-                //data = {'test', 'tester', 'teststsedtset'};
-                $('#searchfield').autocomplete(data, {max: 15, scrollHeight: 200});
+                $('#searchfield').autocomplete(data, {max: 10, scrollHeight: 200});
              }
            }
          });
