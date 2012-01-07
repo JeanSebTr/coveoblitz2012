@@ -17,6 +17,7 @@ fs.readFile(filename, function (err, res) {
       var reg = /\b(\w+)\b/gi;
       while (res = reg.exec(line)) {
          var word = res[1].toLowerCase();
+         if (word.length <= 3) { continue; }
          words[word] = 0;
       }
    }
@@ -55,8 +56,7 @@ app.get('/Suggest', function (req, res) {
    var l = {};
    for (var i=0; i<test.length; i++) {
       var word = test[i];
-      if (word.length <= query) { continue; }
-      //if (typeof word   && word.length < 4) { continue; }
+      if (word.length <= query.length) { continue; }
       var distance = levenshtein(query, word);
       l[word] = distance;
    }
