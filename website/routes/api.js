@@ -94,7 +94,7 @@ module.exports = function(app, engine, io){
     */
    app.get('/api/suggest', function (req, res) {
        var suggest = req.query['query'] || ''
-         , max     = req.query['nb']    || 10;
+         , max     = req.query['nb']    || 100000;
 
        var options = { host: suggestHost
                      , port: suggestPort
