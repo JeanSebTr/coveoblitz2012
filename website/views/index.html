@@ -5,6 +5,20 @@
    </div>
 </form>
 
+<script type='text/javascript'>
+   $(document).ready(function() {
+      var url = '/api/filters/';
+      $.ajax({
+        url: url,
+        context: document.body,
+        success: function(data){
+          console.dir(data);
+        }
+      });
+   });
+
+</script>
+
 <ul id="menu">
    <li class="menu_left"><a href="#" class="drop">Pays</a>
       <div class="dropdown_1column">
