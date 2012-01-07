@@ -5,6 +5,6 @@ $(function(){
 	  buildArrows : false, 
 	  enableStartStop : false, 
 	  enableKeyboard : false, 
-	  autoPlay : false
+	  autoPlay : true
 	});
 });
