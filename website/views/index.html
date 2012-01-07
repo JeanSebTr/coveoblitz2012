@@ -1,7 +1,7 @@
 <form id="search">
    <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='fr' onwebkitspeechchange="onChange()" />
    <div id="loupe">
-      <input id="search_input" type="image" src="../images/loupe.png" />
+      <input type="image" src="../images/loupe.png" />
    </div>
 </form>
 
@@ -55,7 +55,8 @@
            context: document.body,
            success: function(data){
              if(data){
-                $('#search_input').autocomplete(data, {max: 15, scrollHeight: 200});
+                console.log(data);
+                $('#searchfield').autocomplete(data, {max: 15, scrollHeight: 200});
              }
            }
          });
