@@ -56,6 +56,7 @@
            success: function(data){
              if(data){
                 console.log(data);
+                //data = {'test', 'tester', 'teststsedtset'};
                 $('#searchfield').autocomplete(data, {max: 15, scrollHeight: 200});
              }
            }
