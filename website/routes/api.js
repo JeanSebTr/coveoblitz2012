@@ -22,7 +22,7 @@ module.exports = function(app, engine, io){
                                         , Filters     : [{  }]
                                         });
       var options = {
-         host: indexsvr
+         host: indexsvr,
          port: indexsvrport,
          path: '/Search?Team=' + team,
          method: 'POST'
@@ -42,6 +42,7 @@ module.exports = function(app, engine, io){
 
 
    app.get('/api/filters/', function (req, res) {
+      res.json([{name:'pays', values:['US', 'France']}, {name:'other', values:['TEst', 'test']}]);
    });
 
 
@@ -54,7 +55,7 @@ module.exports = function(app, engine, io){
                                         , Filters     : [{  }]
                                         });
       var options = {
-         host: indexsvr
+         host: indexsvr,
          port: indexsvrport,
          path: '/Search?Team=' + team,
          method: 'POST'
