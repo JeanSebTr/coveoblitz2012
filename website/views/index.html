@@ -64,7 +64,7 @@
    function updateSuggest(){
       if($('#searchfield').val() && $('#searchfield').val() != ''){
          $.ajax({
-           url: '/api/suggest?query=' + $('#searchfield').val(),
+           url: '/api/suggest',
            context: document.body,
            success: function(data){
              if(data){
