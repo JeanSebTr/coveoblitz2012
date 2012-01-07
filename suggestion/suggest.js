@@ -17,7 +17,7 @@ fs.readFile(filename, function (err, res) {
       var reg = /\b(\w+)\b/gi;
       while (res = reg.exec(line)) {
          var word = res[1].toLowerCase();
-         if (word.length <= 3) { continue; }
+         if (isNaN(word) && word.length <= 3) { continue; }
          words[word] = 0;
       }
    }
@@ -49,14 +49,36 @@ app.get('/Suggest', function (req, res) {
    var params = req.query;
    var query = params.Query || ''
      , MaxNb = params.MaxNb || 10;
+
    var arr = query.toLowerCase().split(' ');
    query = arr[arr.length - 1];
+   query = query.replace(/(à|â|ä)/gi, 'a');
+   query = query.replace(/(ë|ê)/gi, 'e');
+   query = query.replace(/(ò|ô|ö)/gi, 'o');
+   query = query.replace(/(ñ)/gi, 'n');
    var tmp = [];
+
+
+
+   if (query != '' && query.length < 3) {
+      var tmp =[];
+      for (var i=0; i<test.length; i++) {
+         var word = test[i];
+         if (word.substr(0, query.length) != query) continue;
+         tmp.push(word);
+         if (tmp.length >= MaxNb) { break; }
+      }
+      res.json(tmp);
+      return;
+   }
+
+
+
+
 
    var l = {};
    for (var i=0; i<test.length; i++) {
       var word = test[i];
-      if (word.length <= query.length) { continue; }
       var distance = levenshtein(query, word);
       l[word] = distance;
    }
@@ -80,6 +102,8 @@ app.get('/Suggest', function (req, res) {
    tmp.sort();
    res.json(tmp);
 })
+
+
 
 app.listen(8125);
 
