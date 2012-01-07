@@ -12,6 +12,10 @@
         scale : 'fill'
       });
 
+      $('#searchfield').keyup(function(){
+         updateSuggest();
+      });
+
       var url = '/api/filters/';
       $.ajax({
         url: url,
@@ -43,6 +47,21 @@
         }
       });
    });
+
+   function updateSuggest(){
+      if($('#searchfield').val() && $('#searchfield').val() != ''){
+         $.ajax({
+           url: '/api/suggests/' + $('#searchfield').val(),
+           context: document.body,
+           success: function(data){
+             console.dir(data);
+             if(data){
+                
+             }
+           }
+         });
+      }
+   }
 
 </script>
 <ul id="menu">

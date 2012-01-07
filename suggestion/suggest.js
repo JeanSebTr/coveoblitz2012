@@ -47,82 +47,73 @@ app.configure('production', function(){
 
 app.get('/Suggest', function (req, res) {
    var params = req.query;
-   var query = params.Query || null
+   var query = params.Query || ''
      , MaxNb = params.MaxNb || 10;
-   if (!query) {
-      res.json([]);
-   } else {
-      var arr = query.toLowerCase().split(' ');
-      query = arr[arr.length - 1];
-      var tmp = [];
-      for (var i=0; i<test.length; i++) {
-         var word = test[i];
-         if (query == '' && (word.substr(0, 1) != 'a' || word.length < 3)) { continue; }
-         if (word.substr(0, query.length) != query) { continue; }
-         tmp.push(word);
-         if (tmp.length >= MaxNb) { break; }
-      }
-      res.json(tmp);
+   var arr = query.toLowerCase().split(' ');
+   query = arr[arr.length - 1];
+   var tmp = [];
+
+   var l = {};
+   for (var i=0; i<test.length; i++) {
+      var word = test[i];
+      var distance = levenshtein(query, word);
+      l[word] = distance;
    }
+
+
+   var tuples = [];
+   for (var key in l) { tuples.push([key, l[key]]); }
+   tuples.sort(function(a, b) {
+       a = a[1];
+       b = b[1];
+       return a < b ? -1 : (a > b ? 1 : 0);
+   });
+
+
+   for (var i=0; i<tuples.length; i++) {
+      var word = tuples[i][0];
+      if (query == '' && word.length < 5) { continue; }
+      tmp.push(word);
+      if (tmp.length >= MaxNb) { break; }
+   }
+   tmp.sort();
+   res.json(tmp);
 })
 
 app.listen(8125);
 
-
 function levenshtein (s1, s2) {
-    if (s1 == s2) { return 0; }
-    var s1_len = s1.length;
-    var s2_len = s2.length;
-    if (s1_len === 0) { return s2_len; }
-    if (s2_len === 0) { return s1_len; }
- 
-    // BEGIN STATIC
-    var split = false;
-    try {
-        split = !('0')[0];
-    } catch (e) {
-        split = true; // Earlier IE may not support access by string index
-    }
-    // END STATIC
-    if (split) {
-        s1 = s1.split('');
-        s2 = s2.split('');
-    }
- 
-    var v0 = [s1_len + 1];
-    var v1 = [s1_len + 1];
- 
-    var s1_idx = 0,
-        s2_idx = 0,
-        cost = 0;
-    for (s1_idx = 0; s1_idx < s1_len + 1; s1_idx++) {
-        v0[s1_idx] = s1_idx;
-    }
-    var char_s1 = '',
-        char_s2 = '';
-    for (s2_idx = 1; s2_idx <= s2_len; s2_idx++) {
-        v1[0] = s2_idx;
-        char_s2 = s2[s2_idx - 1];
- 
-        for (s1_idx = 0; s1_idx < s1_len; s1_idx++) {
-            char_s1 = s1[s1_idx];
-            cost = (char_s1 == char_s2) ? 0 : 1;
-            var m_min = v0[s1_idx + 1] + 1;
-            var b = v1[s1_idx] + 1;
-            var c = v0[s1_idx] + cost;
-            if (b < m_min) {
-                m_min = b;
-            }
-            if (c < m_min) {
-                m_min = c;
-            }
-            v1[s1_idx + 1] = m_min;
-        }
-        var v_tmp = v0;
-        v0 = v1;
-        v1 = v_tmp;
-    }
-    return v0[s1_len];
+   if (s1 == s2) { return 0; }
+   var s1Len = s1.length;
+   var s2Len = s2.length;
+   if (s1.length === 0) { return s2.length; }
+   if (s2.length === 0) { return s1.length; }
+   var v0 = [s1.length + 1];
+   var v1 = [s1.length + 1];
+   var s1Idx = 0
+     , s2Idx = 0
+     , cost  = 0;
+   for (var s1Idx = 0; s1Idx < s1.length + 1; s1Idx++) {
+      v0[s1Idx] = s1Idx;
+   }
+   var charS1 = ''
+     , charS2 = '';
+   for (var s2Idx = 1; s2Idx <= s2.length; s2Idx++) {
+      v1[0] = s2Idx;
+      charS2 = s2[s2Idx - 1];
+      for (var s1Idx = 0; s1Idx < s1.length; s1Idx++) {
+         charS1 = s1[s1Idx];
+         cost = (charS1 == charS2) ? 0 : 1;
+         var mMin = v0[s1Idx + 1] + 1;
+         var b = v1[s1Idx] + 1;
+         var c = v0[s1Idx] + cost;
+         if (b < mMin) { mMin = b; }
+         if (c < mMin) { mMin = c; }
+         v1[s1Idx + 1] = mMin;
+      }
+      var tmp = v0;
+      v0 = v1;
+      v1 = tmp;
+   }
+   return v0[s1.length];
 }
-
-console.log(levenshtein('hello', 'ehlllllo'));
