@@ -76,5 +76,6 @@ module.exports = function(app, engine, io){
 
    app.get('/api/suggests/:suggest', function (req, res) {
        var suggest = req.params.suggest;
+       res.json(['toto', 'titi', 'tutu']);
    });
 };
