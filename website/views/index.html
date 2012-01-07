@@ -8,8 +8,8 @@
 <script type='text/javascript'>
    $(document).ready(function() {
       $('img.wine_img').imgscale({
-        center : false,
-        scale : 'fit'
+        parent : '.img',
+        scale : 'fill'
       });
 
       $('#searchfield').keyup(function(){
@@ -91,6 +91,10 @@
 </ul>
 
 <div id="results">
+  <div id="results_menu">
+    <a href="#">Simplifié</a>
+    <a href="#">Détaillé</a>
+  </div>
   <div id="grid">
     <div class="row">
       <div class="vin">
