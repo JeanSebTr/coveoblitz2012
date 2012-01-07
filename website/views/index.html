@@ -16,11 +16,16 @@
       });
 
       $('#search').submit(function(){
-        alert('toto');
+        $.ajax({
+          url: '/api/search?query=' + $.URLEncode($('#searchfield').val()),
+          success: function(data){
+            console.log(data);
+          }
+        });
         return false; 
       });
 
-      $('.filter_item').click(function(){
+      $('.filter_item').click(function(e){
         var v = $('#searchfield').val();
         
         $('#searchfield').val(v + 'toto');
