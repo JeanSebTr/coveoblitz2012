@@ -1,29 +1,26 @@
-var http = require('http'),
-    util = require('util');
-    Vin  = require(__dirname+'/bouteille.js');
+var HTTP = require(__dirname+'/http.js'),
+    util = require('util'),
+    Indexer = require(__dirname+'/indexer.js');
 
 var team = 'B', runid = '2', token = '1';
 var qryID = '?team='+team+'&run='+runid+'&token='+token;
-var ip = '192.168.1.11';
+var host = 'blitz02', ip = host;
 
+var maxHttp = new HTTP(8);
+
+var oIndex = new Indexer(ip, host, team);
+var Vin  = require(__dirname+'/bouteille.js')(oIndex, maxHttp);
 var start = '/blitzservice/start'+qryID;
 var stop = '/blitzservice/end'+qryID;
 
 var pCount = 0, inc = 200, allDone = false;
-var queries = [],
-    vinCpt = 0;
+var vinCpt = 0;
 
 var errorEvent = function(e)
    {
       console.log('problem with request: ' + e.message);
    };
 
-var dataEvent = function(page, chunk)
-   {
-      if(queries[page] === undefined)
-         queries[page] = '';
-      queries[page] += chunk;
-   };
 var endVin = function()
    {
       vinCpt--;
@@ -39,10 +36,14 @@ var endVin = function()
                path: stop
             };
             console.log(opts);
-            http.get(opts, function()
+            maxHttp.get(opts, function(st, data)
             {
                util.log('stop crawling ! :D');
-            }).on('error', errorEvent);
+               setTimeout(function(){
+                  oIndex.commit();
+                  }, 2000);
+               console.log(' >>> Commiting index IN 2 secondes ! ;)');
+            });
          }
          else
          {
@@ -51,11 +52,11 @@ var endVin = function()
          }
       }
    };
-var endEvent = function(page)
+var endEvent = function(page, res)
    {
       console.log('Page '+pCount+' received!');
-      var data = JSON.parse(queries[page]);
-      delete queries[page];
+      console.log(res);
+      var data = JSON.parse(res);
       if(Array.isArray(data))
       {
          if(data.length === 0)
@@ -73,18 +74,6 @@ var endEvent = function(page)
       else
          console.log('Error crawling : /bottleservice/bottles/page/'+page+'/count/'+inc);
    };
-var callback = function(res)
-   {
-      /*console.log('STATUS: ' + res.statusCode);
-      console.log('HEADERS: ' + JSON.stringify(res.headers));*/
-      res.setEncoding('utf8');
-      res.on('data', function(chunk){
-         dataEvent(pCount, chunk);
-      });
-      res.on('end', function(){
-         endEvent(pCount);
-      });
-   };
 
 var callPage = function()
 {
@@ -94,7 +83,11 @@ var callPage = function()
       path: '/bottleservice/bottles/page/'+pCount+'/count/'+inc+qryID
    };
    console.log(options);
-   http.get(options, callback).on('error', errorEvent);
+   maxHttp.get(options, function(st, data)
+   {
+      console.log(st);
+      endEvent(pCount, data);
+   });
 };
 
 var optQry = {
@@ -103,20 +96,12 @@ var optQry = {
    path: start
 };
 console.log(optQry);
-http.get(optQry, function(res)
+maxHttp.get(optQry, function(data)
 {
-   var data = '';
-   res.on('data', function(chunk)
-   {
-      data += chunk;
-   });
-   res.on('end', function()
-   {
-      console.log(' >>> Start cmd result : '+data);
-      util.log('start crawling ! :)');
-      callPage();
-   });
-}).on('error', errorEvent);
+   console.log(' >>> Start cmd result : '+data);
+   util.log('start crawling ! :)');
+   callPage();
+});
 
 
 

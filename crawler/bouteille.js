@@ -1,28 +1,33 @@
-var http = require('http');
 
-var Class = function(data, callback)
+
+module.exports = function(indexer, http)
 {
-   this.data = {
-      id: data.Id,
-      name: data.Name
+   var Class = function(data, callback)
+   {
+      this.data = {
+         Id: data.Id,
+         Name: data.Name,
+         Info: "",
+         Fields: []
+      };
+      this.callback = callback;
+      this.completeData();
    };
-   this.callback = callback;
-   this.completeData();
+   
+   Class.prototype = {
+      completeData: function()
+      {
+         var $this = this;
+         process.nextTick(function(){
+            $this.dataFinish();
+         });
+      },
+      dataFinish: function()
+      {
+         indexer.index(this.data);
+         this.callback();
+      }
+   };
+   return Class;
 };
-
-Class.prototype = {
-   completeData: function()
-   {
-      var $this = this;
-      process.nextTick(function(){
-         $this.dataFinish();
-      });
-   },
-   dataFinish: function()
-   {
-      this.callback();
-   }
-};
-
-module.exports = Class;
 
