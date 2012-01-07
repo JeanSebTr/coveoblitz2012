@@ -1,0 +1,40 @@
+[{
+      "Name": "MealService",
+         "Url": "/mealservice"
+},
+{
+      "Name": "WikipediaService",
+         "Url": "/wikipediaservice"
+},
+{
+      "Name": "MasterService",
+         "Url": "/masterservice"
+},
+{
+      "Name": "TastingService",
+         "Url": "/tastingservice"
+},
+{
+      "Name": "SensoryService",
+         "Url": "/sensoryservice"
+},
+{
+      "Name": "ImageService",
+         "Url": "/imageservice"
+},
+{
+      "Name": "BlitzService",
+         "Url": "/blitzservice"
+},
+{
+      "Name": "SellerService",
+         "Url": "/sellerservice"
+},
+{
+      "Name": "BottleService",
+         "Url": "/bottleservice"
+},
+{
+      "Name": "WineDenominationService",
+         "Url": "/winedenominationservice"
+}]

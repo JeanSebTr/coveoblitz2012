@@ -1,0 +1,164 @@
+http: //192.168.1.12:8123//mealservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/meals/{bottleid}",
+   "Method": "GET"
+},
+{
+   "Url": "/meal/{bottleid}/index/{mealindex}",
+   "Method": "GET"
+},
+{
+   "Url": "/wineservice/{bottleid}",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//wikipediaservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/article/{title}",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//masterservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/list",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//tastingservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/taste/{bottleid}",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//sensoryservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/taste/fields",
+   "Method": "GET"
+},
+{
+   "Url": "/taste/bottle/{id}",
+   "Method": "GET"
+},
+{
+   "Url": "/visual/fields",
+   "Method": "GET"
+},
+{
+   "Url": "/visual/bottle/{id}",
+   "Method": "GET"
+},
+{
+   "Url": "/smell/fields",
+   "Method": "GET"
+},
+{
+   "Url": "/smell/bottle/{id}",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//imageservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/image/{bottleid}",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//blitzservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/start",
+   "Method": "GET"
+},
+{
+   "Url": "/end",
+   "Method": "GET"
+},
+{
+   "Url": "/bottlenames",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//sellerservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/codes/{bottleid}",
+   "Method": "GET"
+},
+{
+   "Url": "/info/{bottleid}",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//bottleservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/bottle/{id}",
+   "Method": "GET"
+},
+{
+   "Url": "/bottles/page/{page}/count/{count}",
+   "Method": "GET"
+},
+{
+   "Url": "/names",
+   "Method": "GET"
+}]
+
+
+http: //192.168.1.12:8123//winedenominationservice/def
+[{
+   "Url": "/def",
+   "Method": "GET"
+},
+{
+   "Url": "/forbottle/{bottleid}",
+   "Method": "GET"
+},
+{
+   "Url": "/denomination/{denominationid}",
+   "Method": "GET"
+},
+{
+   "Url": "/denominations/page/{page}/count/{count}",
+   "Method": "GET"
+}]
