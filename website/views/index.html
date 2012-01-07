@@ -6,10 +6,24 @@
 </form>
 
 <script type='text/javascript'>
+  function onChange(){
+        $('#search').submit();
+      }
    $(document).ready(function() {
       $('img.wine_img').imgscale({
         parent : '.img',
         scale : 'fill'
+      });
+
+      $('#search').submit(function(){
+        alert('toto');
+        return false; 
+      });
+
+      $('.filter_item').click(function(){
+        var v = $('#searchfield').val();
+        
+        $('#searchfield').val(v + 'toto');
       });
 
       $('#searchfield').keyup(function(){
@@ -39,7 +53,7 @@
                      console.log(e.values[i]);
                      var item = $('<li>');
                      item.appendTo(ul);
-                     var item_a = $('<a>').attr('href', '#').append(e.values[i]);
+                     var item_a = $('<a>').attr('href', '#').attr('class', 'filter_item').append(e.values[i]);
                      item_a.appendTo(item);
                   }
              });
