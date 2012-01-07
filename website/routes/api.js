@@ -6,7 +6,16 @@ var indexsvr     = '192.168.1.11'
   , indexsvrport = 8124
   , team         = 'B';
 
+
+var suggestHost = '127.0.0.1'
+  , suggestPort =  8125;
+
 module.exports = function(app, engine, io){
+
+
+   /**
+    *
+    */
    app.get('/api/search', function(req, res){
       var params = req.query;
 
@@ -41,11 +50,17 @@ module.exports = function(app, engine, io){
    });
 
 
+   /**
+    *
+    */
    app.get('/api/filters/', function (req, res) {
       res.json([{name:'pays', values:['US', 'France']}, {name:'other', values:['TEst', 'test']}]);
    });
 
 
+   /**
+    *
+    */
    app.get('/api/details/:id', function (req, res) {
        var id = req.params.id;
 
@@ -74,8 +89,25 @@ module.exports = function(app, engine, io){
    });
 
 
-   app.get('/api/suggests/:suggest', function (req, res) {
-       var suggest = req.params.suggest;
-       res.json(['toto', 'titi', 'tutu']);
+   /**
+    *
+    */
+   app.get('/api/suggest', function (req, res) {
+       var suggest = req.query['query'] || ''
+         , max     = req.query['nb']    || 10;
+
+       var options = { host: suggestHost
+                     , port: suggestPort
+                     , path: '/Suggest?Query='+suggest+'&MaxNb='+max
+                     };
+       http.get(options, function (r) {
+          var tmp = '';
+          r.on('data', function (data) {
+             tmp += data;
+          })
+          r.on('end', function () {
+             res.json(JSON.parse(tmp));
+          });
+       });
    });
 };
