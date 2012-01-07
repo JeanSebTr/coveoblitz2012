@@ -7,6 +7,11 @@
 
 <script type='text/javascript'>
    $(document).ready(function() {
+      $('img.wine_img').imgscale({
+        center : false,
+        scale : 'fit'
+      });
+
       var url = '/api/filters/';
       $.ajax({
         url: url,
@@ -44,3 +49,44 @@
       </div>
    </li>
 </ul>
+
+<div id="results">
+  <div id="grid">
+    <div class="row">
+      <div class="vin">
+        <div class="img">
+          <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+        </div>
+        <div class="infos">
+          <a href="#">Nom du vin</a>
+          <p>$$$</p>
+          <p>Cépage</p>
+          <p>Origine</p>
+          <p>CRISS</p>
+        </div>
+      </div>
+      <div class="vin">
+      </div>
+      <div class="vin">
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4 box">
+      </div>
+      <div class="span4 box">
+      </div>
+      <div class="span4 box">
+      </div>
+    </div>
+    <div class="row">
+      <div class="span4 box">
+      </div>
+      <div class="span4 box">
+      </div>
+      <div class="span4 box">
+      </div>
+    </div>
+  </div>
+  <div id="list">
+  </div>
+</div>
