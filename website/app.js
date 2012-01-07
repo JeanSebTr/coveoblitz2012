@@ -7,32 +7,11 @@ var color   = require('./libs/colors.js');
 console.time('Loading dependencies'.blue);
 
 var fs = require('fs'),
-  path = require('path'),
-  less = require('less');
+  path = require('path');
 var express = require('express');
 var app = module.exports = express.createServer();
 
 console.timeEnd('Loading dependencies'.blue);
-
-/**
- * Compile Less CSS
- */
-console.log('Compiling Less CSS...'.blue);
-var dir = __dirname+'/public/stylesheets/',
-  files = fs.readdirSync(dir);
-var f, lcss;
-for(f in files)
-{
-  if(path.extname(files[f]) == '.less')
-  {
-    lcss = fs.readFileSync(dir+files[f], 'utf8');
-    less.render(lcss, function(e, css)
-    {
-      fs.writeFileSync(dir+path.basename(files[f], '.less')+'.css', css, 'utf8');
-      console.log(' - Compiled : '.cyan+(dir+path.basename(files[f])).green)
-    });
-  }
-}
 
 // Configuration
 
