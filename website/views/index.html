@@ -6,6 +6,7 @@
 </form>
 
 <script type='text/javascript'>
+  updateSuggest();
   function onChange(){
         $('#search').submit();
       }
@@ -29,10 +30,6 @@
         var v = $('#searchfield').val();
         
         $('#searchfield').val(v + 'toto');
-      });
-
-      $('#searchfield').keyup(function(){
-         updateSuggest();
       });
 
       var url = '/api/filters/';
@@ -67,17 +64,16 @@
    });
 
    function updateSuggest(){
-      if($('#searchfield').val() && $('#searchfield').val() != ''){
-         $.ajax({
-           url: '/api/suggest',
-           context: document.body,
-           success: function(data){
-             if(data){
-                $('#searchfield').autocomplete(data, {max: 10, scrollHeight: 200});
-             }
+       $.ajax({
+         url: '/api/suggest',
+         context: document.body,
+         success: function(data){
+           if(data){
+              console.log(data);
+              $('#searchfield').autocomplete(data, {max: 10, scrollHeight: 200});
            }
-         });
-      }
+         }
+       });
    }
 
 </script>
