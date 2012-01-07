@@ -20,8 +20,45 @@
         $.ajax({
           url: '/api/search?limit=200&query=' + encodeURI($('#searchfield').val()),
           success: function(data){
+            var cpt = 0;
+            var row;
+            $('#grid').empty();
             $.each(data.Wines, function(i,e){
-              
+                for(var i = 0; i < e.Fields.length; i++){
+                  if(e.Fields[i].Name == 'blitzfield01'){
+                    var vnom = e.Fields[i].Value;
+                  }
+                  if(e.Fields[i].Name == 'blitzfield04'){
+                    var vprix = e.Fields[i].Value;
+                  }
+                  if(e.Fields[i].Name == 'blitzfield05'){
+                    var vml = e.Fields[i].Value;
+                  }
+                  if(e.Fields[i].Name == 'blitzfield07'){
+                    var image = e.Fields[i].Value;
+                  }
+                }
+                if(cpt === 0 || cpt%3 ==0){
+                  row = $('<div>').attr('class', 'row');
+                  row.appendTo('#grid');
+                }
+                var div1 = $('<div>').attr('class', 'vin');
+                div1.appendTo(row);
+                var divimg = $('<div>').attr('class', 'img');
+                divimg.appendTo(div1);
+                var img = $('<img>').attr('src', image).attr("class", "wine_img").attr("height", '120');
+                img.appendTo(divimg);
+                var divinfos = $('<div>').attr('class', 'infos');
+                divinfos.appendTo(div1);
+                var nom = $('<a>').attr('href', '#').append(vnom);
+                nom.appendTo(divinfos);
+                var prix = $('<p>').append(vprix);
+                prix.appendTo(divinfos);
+                var ml = $('<p>').append(vml);
+                ml.appendTo(divinfos);
+                cpt++;
+
+
 
 /*
               <div class="vin">
