@@ -2,13 +2,16 @@ var querystring = require('querystring')
   , http        = require('http');
 
 
-var indexsvr     = '192.168.1.11'
+var indexsvr     = 'blitz02'
   , indexsvrport = 8124
   , team         = 'B';
 
 
 var suggestHost = '127.0.0.1'
   , suggestPort =  8125;
+
+ var jsHttp = require(__dirname + '/../../crawler/http.js');
+ var jsHttpInstance = new jsHttp(10000);
 
 module.exports = function(app, engine, io){
 
@@ -22,13 +25,13 @@ module.exports = function(app, engine, io){
       var query   = params.query   || ''
         , limit   = params.limit   || 20
         , offset  = params.offset  || 0
-        , filters = params.filters || {}
+        , filters = params.filters || []
         , orderby = params.orderby || null;
 
-       var data = querystring.stringify({ Expression  : query
+       var data = JSON.stringify({ Expression  : query
                                         , FirstResult : offset
-                                        , NbResults   : limit
-                                        , Filters     : [{  }]
+                                        , NbResults   : parseInt(limit)
+                                        , Filters     : []
                                         });
       var options = {
          host: indexsvr,
@@ -36,17 +39,14 @@ module.exports = function(app, engine, io){
          path: '/Search?Team=' + team,
          method: 'POST'
       };
-      var post = http.request(options, function(r) {
-         r.setEncoding('utf8');
-         r.on('data', function (chunk) {
-            res.json({
-               'success': true,
-               'result': chunk
-            }, 200);
-         });
+      console.log(options);
+      console.log(data);
+      jsHttpInstance.post(options, data, function(status, d){
+        console.log(d);
+        res.json(JSON.parse(d));
       });
-      post.write(data);
-      post.end();
+
+      
    });
 
 
@@ -94,7 +94,7 @@ module.exports = function(app, engine, io){
     */
    app.get('/api/suggest', function (req, res) {
        var suggest = req.query['query'] || ''
-         , max     = req.query['nb']    || 10;
+         , max     = req.query['nb']    || 100000;
 
        var options = { host: suggestHost
                      , port: suggestPort
