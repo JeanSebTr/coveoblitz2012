@@ -42,11 +42,7 @@
         return false; 
       });
 
-      $('.filter_item').click(function(e){
-        var v = $('#searchfield').val();
-        
-        $('#searchfield').val(v + 'toto');
-      });
+      
 
       var url = '/api/filters/';
       $.ajax({
@@ -67,10 +63,10 @@
                   var ul = $('<ul>').attr('class', 'simple');
                   ul.appendTo(div2);
                   for(var i=0; i < e.values.length;i++){
-                     console.log(e.values[i]);
                      var item = $('<li>');
                      item.appendTo(ul);
                      var item_a = $('<a>').attr('href', '#').attr('class', 'filter_item').append(e.values[i]);
+                     item_a.attr('onclick', "$('#searchfield').val($('#searchfield').val() + ' "+e.values[i]+"')");
                      item_a.appendTo(item);
                   }
              });

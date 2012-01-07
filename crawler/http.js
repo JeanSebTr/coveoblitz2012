@@ -11,7 +11,7 @@ var Class = function(max)
 Class.prototype = {
    get: function(opt, callback)
    {
-      if(this.cpt < this.max)
+      if(this.max == 0 || this.cpt < this.max)
       {
          this.cpt++;
          this.doGet(opt, callback);
@@ -44,7 +44,7 @@ Class.prototype = {
    },
    post: function(opt, data, callback)
    {
-      if(this.cpt < this.max)
+      if(this.max == 0 || this.cpt < this.max)
       {
          this.cpt++;
          this.doPost(opt, data, callback);
