@@ -21,7 +21,7 @@
           url: '/api/search?limit=200&query=' + encodeURI($('#searchfield').val()),
           success: function(data){
             $.each(data.Wines, function(i,e){
-              
+              console.log(e);
 
 /*
               <div class="vin">
