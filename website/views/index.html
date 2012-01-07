@@ -20,6 +20,7 @@
         $.ajax({
           url: '/api/search?query=' + encodeURI($('#searchfield').val()),
           success: function(data){
+            console.log('TP');
             console.log(data);
           }
         });
