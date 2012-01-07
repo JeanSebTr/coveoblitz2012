@@ -11,7 +11,7 @@ var suggestHost = '127.0.0.1'
   , suggestPort =  8125;
 
  var jsHttp = require(__dirname + '/../../crawler/http.js');
- var jsHttpInstance = new jsHttp(10000);
+ var jsHttpInstance = new jsHttp(0);
 
 module.exports = function(app, engine, io){
 
@@ -54,7 +54,7 @@ module.exports = function(app, engine, io){
     *
     */
    app.get('/api/filters/', function (req, res) {
-      res.json([{name:'pays', values:['US', 'France']}, {name:'other', values:['TEst', 'test']}]);
+      res.json([{name:'pays', values:['Canada', 'Etats-Unis', 'France', 'Italie', 'Portugal']}, {name:'Couleur', values:['rouge', 'blanc', 'rose']}]);
    });
 
 
