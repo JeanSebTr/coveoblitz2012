@@ -18,9 +18,25 @@
 
       $('#search').submit(function(){
         $.ajax({
-          url: '/api/search?query=' + $.URLEncode($('#searchfield').val()),
+          url: '/api/search?limit=200&query=' + encodeURI($('#searchfield').val()),
           success: function(data){
-            console.log(data);
+            $.each(data.Wines, function(i,e){
+              
+
+/*
+              <div class="vin">
+                <div class="img">
+                  <image class="wine_img" src="http://192.168.1.13:82/00022517_g.jpg" />
+                </div>
+                <div class="infos">
+                  <a href="#">Nom du vin</a>
+                  <p>$$$</p>
+                  <p>Cépage</p>
+                  <p>Origine</p>
+                  <a href="#">Emportez moi!</a>
+                </div>
+              </div>*/
+            })
           }
         });
         return false; 
@@ -69,7 +85,6 @@
          context: document.body,
          success: function(data){
            if(data){
-              console.log(data);
               $('#searchfield').autocomplete(data, {max: 10, scrollHeight: 200});
            }
          }
