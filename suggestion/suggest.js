@@ -12,7 +12,6 @@ var test = [];
 fs.readFile(filename, function (err, res) {
    var data = res.toString();
    var json = JSON.parse(data);
-   console.log(json);
    for (var i=0; i<json.length; i++) {
       var line = json[i];
       var reg = /\b(\w+)\b/gi;
@@ -56,6 +55,8 @@ app.get('/Suggest', function (req, res) {
    var l = {};
    for (var i=0; i<test.length; i++) {
       var word = test[i];
+      if (word.length <= query) { continue; }
+      //if (typeof word   && word.length < 4) { continue; }
       var distance = levenshtein(query, word);
       l[word] = distance;
    }
