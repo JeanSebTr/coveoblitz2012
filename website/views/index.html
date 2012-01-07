@@ -6,6 +6,7 @@
 </form>
 
 <script type='text/javascript'>
+  updateSuggest();
   function onChange(){
         $('#search').submit();
       }
@@ -26,10 +27,6 @@
       });
 
       
-
-      $('#searchfield').keyup(function(){
-         updateSuggest();
-      });
 
       var url = '/api/filters/';
       $.ajax({
@@ -63,17 +60,16 @@
    });
 
    function updateSuggest(){
-      if($('#searchfield').val() && $('#searchfield').val() != ''){
-         $.ajax({
-           url: '/api/suggest?query=' + $('#searchfield').val(),
-           context: document.body,
-           success: function(data){
-             if(data){
-                $('#searchfield').autocomplete(data, {max: 10, scrollHeight: 200});
-             }
+       $.ajax({
+         url: '/api/suggest',
+         context: document.body,
+         success: function(data){
+           if(data){
+              console.log(data);
+              $('#searchfield').autocomplete(data, {max: 10, scrollHeight: 200});
            }
-         });
-      }
+         }
+       });
    }
 
 </script>
@@ -104,10 +100,6 @@
 </ul>
 
 <div id="results">
-  <div id="results_menu">
-    <a href="#">Simplifié</a>
-    <a href="#">Détaillé</a>
-  </div>
   <div id="grid">
     <div class="row">
       <div class="vin">

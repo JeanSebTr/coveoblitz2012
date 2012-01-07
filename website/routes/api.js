@@ -45,8 +45,11 @@ module.exports = function(app, engine, io){
         console.log(d);
         res.json(JSON.parse(d));
       });
+   });
 
-      
+
+   app.get('/api/nine/', function (req, res) {
+      res.redirect('/api/search?query=blanc&limit=9');
    });
 
 

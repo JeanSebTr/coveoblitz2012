@@ -34,9 +34,35 @@
     </head>
     <body>
     <div id="progress-note"></div>
+    <script>
+     $(document).ready(function() {
+        $.get('/api/nine/', function (d) {
+           $('#dummy').empty();
+           for (var i=0; i<d.Wines.length; i++) {
+              var wine = d.Wines[i];
+              var a = ''
+                +'<div class="vin">'
+              +'      <div class="img">'
+              +'          <image src="http://192.168.1.13:82/00022517_g.jpg" />'
+              +'      </div>'
+              +'      <div class="infos">'
+              +'          <a href="#">'+wine.Name+'</a>'
+              +'          <p>$$$</p>'
+              +'          <p>Cépage</p>'
+              +'          <p>Pays</p>'
+              +'          <p>CRISS</p>'
+              +'          <p>CRISS</p>'
+              +'          <a href="#">Emportez-moi</a>'
+              +'      </div>'
+              +'  </div>';
+              $('#dummy').append(a);
+           }
+        });
+     });
+    </script>
     <header role="banner">
         <div id="slider">
-            <div class="slide">
+            <div id="dummy" class="slide">
                 <div class="vin">
                     <div class="img">
                         <image src="http://192.168.1.13:82/00022517_g.jpg" />
