@@ -1,5 +1,5 @@
 <form id="search">
-   <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='en' onwebkitspeechchange="onChange()" />
+   <input id="searchfield" type="search" placeholder="Keywords!!!" value="" x-webkit-speech lang='fr' onwebkitspeechchange="onChange()" />
    <div id="loupe">
       <input type="image" src="../images/loupe.png" />
    </div>
@@ -8,8 +8,12 @@
 <script type='text/javascript'>
    $(document).ready(function() {
       $('img.wine_img').imgscale({
-        center : false,
-        scale : 'fit'
+        parent : '.img',
+        scale : 'fill'
+      });
+
+      $('#searchfield').keyup(function(){
+         updateSuggest();
       });
 
       var url = '/api/filters/';
@@ -44,6 +48,22 @@
       });
    });
 
+   function updateSuggest(){
+      if($('#searchfield').val() && $('#searchfield').val() != ''){
+         $.ajax({
+           url: '/api/suggests/' + $('#searchfield').val(),
+           context: document.body,
+           success: function(data){
+            console.log('toto');
+             console.dir(data);
+             if(data){
+                
+             }
+           }
+         });
+      }
+   }
+
 </script>
 <ul id="menu">
    <li class="menu_left"><a href="#" class="drop">Pays</a>
@@ -72,6 +92,10 @@
 </ul>
 
 <div id="results">
+  <div id="results_menu">
+    <a href="#">Simplifié</a>
+    <a href="#">Détaillé</a>
+  </div>
   <div id="grid">
     <div class="row">
       <div class="vin">

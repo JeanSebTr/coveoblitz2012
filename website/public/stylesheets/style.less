@@ -27,19 +27,29 @@ header[role="banner"]{
 }
 
 .vin .img{
-    width: 133px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow:inset 0px 0px 1px #edf9ff;
+    -webkit-box-shadow:inset 0px 0px 1px #edf9ff;
+    box-shadow:inset 0px 0px 1px #edf9ff;
+    border: 1px solid #002232;
+
+    background-color: #fff;
+    width: 114px;
     display: block;
     float: left;
-    padding-top: 10px;
+    margin-top: 10px;
+    margin-left: 8px;
 }
 
 .vin .infos{
-    width: 118px;
+    width: 127px;
     display: block;
     float:left;
 
     text-align: right;
-    padding-right: 15px;
+    padding-right: 0px;
     padding-bottom: 10px;
     padding-top: 10px;
 }
@@ -146,7 +156,7 @@ html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
     background: #222 url(dropdown_linkbg.gif) no-repeat 10px center;
 }
 
-#grid{
+#results{
     margin-top: 10px;
 }
 
@@ -163,7 +173,12 @@ html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
     width: 266px;
 }
 
-#grid .wine_img{
+#grid .img{
     display: block;
     height: 120px;
+    width: 70px;
+}
+
+#grid .infos{
+    width: 160px;
 }
