@@ -11,7 +11,6 @@ var Class = function(ip, host, team)
    
    this.stack = [];
    var opt = this.getOpts('/Index/Clear');
-   console.log(opt);
    http.get(opt, function(st, data)
    {
       console.log(' >>> Clear Index result : '+data);
@@ -40,18 +39,18 @@ Class.prototype = {
    realIndex: function(obj)
    {
       var d = JSON.stringify(obj);
-      console.log(' -- Indexing '+d);
       var opt = this.getOpts('/Index');
       http.post(opt, d, function(st, data)
       {
-         console.log(" >>> "+obj.Id+" indexed : "+data);
+         
       });
    },
    commit: function()
    {
+      var $this = this;
       http.get(this.getOpts('/Index/Commit'), function(st, data)
       {
-         console.log(' -- Commit result : '+data);
+         console.log(' Indexed data on '+$this.host+' : '+data);
       });
    }
 };

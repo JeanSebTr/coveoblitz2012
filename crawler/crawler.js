@@ -2,14 +2,14 @@ var HTTP = require(__dirname+'/http.js'),
     util = require('util'),
     Indexer = require(__dirname+'/indexer.js');
 
-var team = 'B', runid = '2', token = '1';
+var team = 'B', runid = '6', token = '1';
 var qryID = '?team='+team+'&run='+runid+'&token='+token;
-var host = 'blitz02', ip = host;
+var host = 'blitz01', ip = host;
 
 var maxHttp = new HTTP(8);
 
 var oIndex = new Indexer(ip, host, team);
-var Vin  = require(__dirname+'/bouteille.js')(oIndex, maxHttp);
+var Vin  = require(__dirname+'/bouteille.js')(oIndex, maxHttp, host, qryID);
 var start = '/blitzservice/start'+qryID;
 var stop = '/blitzservice/end'+qryID;
 
@@ -55,7 +55,6 @@ var endVin = function()
 var endEvent = function(page, res)
    {
       console.log('Page '+pCount+' received!');
-      console.log(res);
       var data = JSON.parse(res);
       if(Array.isArray(data))
       {
